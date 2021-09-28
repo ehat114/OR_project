@@ -23,7 +23,7 @@ def sort_regions_kmeans(plotRegions=False):
     '''
 
     # read location data from file
-    data = pd.read_csv('WoolworthsLocations.csv')
+    data = pd.read_csv('Data/WoolworthsLocations.csv')
     # seperate out required columns
     locs = data.loc[:,['Store','Lat','Long']]
 
@@ -37,7 +37,7 @@ def sort_regions_kmeans(plotRegions=False):
     labels = kmeans.predict(locs[locs.columns[1:3]])
 
     # write new data frame to csv file
-    locs.to_csv('WoolworthsRegions.csv')
+    locs.to_csv('GeneratedFiles/WoolworthsRegions.csv')
 
     if plotRegions:
         # visualise k-means with scatterplot
@@ -62,7 +62,7 @@ def sort_regions_manual(plotRegions=False):
         The list of stores and their respective regions are written in the file 'WoolworthsRegions.csv'.
     '''
     # read location data from file
-    data = pd.read_csv('WoolworthsLocations.csv')
+    data = pd.read_csv('Data/WoolworthsLocations.csv')
     # seperate out required columns
     locs = data.loc[:,['Store','Lat','Long']]
     locs.set_index('Store')
@@ -96,7 +96,7 @@ def sort_regions_manual(plotRegions=False):
     locs['Region'][7] = 1
 
     # write to csv file
-    locs.to_csv('WoolworthsRegions.csv')
+    locs.to_csv('GeneratedFiles/WoolworthsRegions.csv')
 
     if plotRegions:
         # visualise regions with scatterplot

@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def getAverages():
-    fname = "WoolworthsDemands.csv"
+    fname = "Data/WoolworthsDemands.csv"
 
     demandData = pd.read_csv(fname, index_col="Store").transpose()
     demandData.index = pd.to_datetime(demandData.index)  
@@ -16,6 +16,6 @@ def getAverages():
 
 
 if __name__ == "__main__":
-    outname = "AverageDemands.csv"
+    outname = "GeneratedFiles/AverageDemands.csv"
 
     getAverages().to_csv(outname)

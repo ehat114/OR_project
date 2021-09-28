@@ -68,24 +68,24 @@ class Routes():
 
 
 def getAdjacencyMatrix():
-    fname = "WoolworthsTravelDurations.csv"
+    fname = "Data/WoolworthsTravelDurations.csv"
     return pd.read_csv(fname, index_col=0)
 
 
 def getRegions():
-    fname = "WoolworthsRegions.csv"
+    fname = "GeneratedFiles/WoolworthsRegions.csv"
     return pd.read_csv(fname, index_col="Store")["Region"]
 
 
 if __name__ == "__main__":
     save = 1
-    read = 0
+    read = 1
     type = "Weekdays"
     # type = "Saturdays"
 
     if read:
         routes = Routes(type)
-        routes.loadfrom(f"{type}Routes")
+        routes.loadfrom(f"GeneratedFiles/{type}Routes")
 
     else:
         # Calculate all possible routes with certain number of stops
@@ -95,7 +95,7 @@ if __name__ == "__main__":
             routes.getRoutes(type, i, [routes.origin])
         
         if save:
-            routes.saveas(f"{type}Routes", overwrite=True)
+            routes.saveas(f"GeneratedFiles/{type}Routes", overwrite=True)
 
     print(f"{len(routes.routes)} routes found")
     print(routes.routes)

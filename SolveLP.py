@@ -5,7 +5,7 @@ from pulp import *
 
 
 if __name__ == "__main__":
-    fname = "WeekdaysRoutes"
+    fname = "GeneratedFiles/WeekdaysRoutes"
     # fname = "SaturdaysRoutes"
 
     routes = pd.read_csv(f"{fname}.csv", index_col=0)
