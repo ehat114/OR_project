@@ -14,14 +14,14 @@ if __name__ == "__main__":
 
     vars = LpVariable.dicts("Route", routes.index, 0, None, LpBinary)
 
-    prob += lpSum([routes["Cost"] * vars[r] for r in routes.index]), "Total Cost"
+    prob += lpSum([routes["Cost"][r] * vars[r] for r in routes.index]), "Total Cost"
 
     for store in [s for s in routes.columns.tolist() if s not in ["Path", "Pallets", "Cost"]]:
         prob += lpSum([routes[store][r] * vars[r] for r in routes.index]) == 1
     
-    prob += lpSum([vars[r] for r in routes.index]) <= 80
+    prob += lpSum([vars[r] for r in routes.index]) <= 60
     
-    # prob.writeLP('Routes.lp')
+    prob.writeLP('GeneratedFiles/Routes.lp')
 
     prob.solve()
 
