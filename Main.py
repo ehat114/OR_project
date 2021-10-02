@@ -7,7 +7,7 @@ from os import path
 if __name__ == "__main__":
     overWriteAverages = False
     overWriteRegions = False
-    overWriteRoutes = False
+    overWriteRoutes = {"Weekdays": False, "Saturdays": True}
     overWriteSolutions = True
 
     # Calculate average demand
@@ -29,19 +29,20 @@ if __name__ == "__main__":
             
         # Generate valid routes
         routesFile = f"GeneratedFiles/{dayType}Routes.csv"
-        if overWriteRoutes or not path.exists(routesFile):
-            maxStops = 3
+        if overWriteRoutes[dayType] or not path.exists(routesFile):
+            maxStops = 4 if dayType == "Weekdays" else 4
 
             routes = Routes(dayType)
 
-            for i in range(1, maxStops + 1):
-                routes.getRoutes(dayType, i, [routes.origin])
-                print(f"{dayType} {i}-stop(s) routes passed")
+            routes.getRoutes(dayType, maxStops)
             
             routes.saveas(routesFile, overwrite=True)
+        
+        print(f"{dayType} routes passed")
 
         # Solve LP
         solFile = f"GeneratedFiles/{dayType}Solution.csv"
         if overWriteSolutions or not path.exists(solFile):
             solveRoutesLP(dayType=dayType)
-            print(f"{dayType} solutions passed")
+                
+        print(f"{dayType} solutions passed")

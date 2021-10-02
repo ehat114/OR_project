@@ -5,7 +5,7 @@ def solveRoutesLP(dayType=None, saveLP=False):
     fname = "GeneratedFiles/WeekdaysRoutes.csv" if dayType == "Weekdays" else "GeneratedFiles/SaturdaysRoutes.csv" if dayType == "Saturdays" else None
 
     if fname is not None:
-        routes = pd.read_csv(f"{fname}.csv", index_col=0)
+        routes = pd.read_csv(fname, index_col=0)
         prob = LpProblem("Distribution Route Problem", LpMinimize)
         vars = LpVariable.dicts("Route", routes.index, 0, None, LpBinary)
 
