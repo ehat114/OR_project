@@ -1,4 +1,5 @@
 GeneratedFiles/*
+__pycache__/*
 
 !GeneratedFiles/.gitkeep
 !GeneratedFiles/WeekdaysSolution.csv
