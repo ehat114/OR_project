@@ -64,7 +64,7 @@ def sort_regions_manual(outName=None, plotRegions=False):
     # read location data from file
     data = pd.read_csv('Data/WoolworthsLocations.csv')
     # seperate out required columns
-    locs = data.loc[:,['Store','Lat','Long']].copy()
+    locs = data.loc[:,['Store','Lat','Long']]
     locs.set_index('Store')
 
     # create new column of regions
