@@ -1,3 +1,5 @@
 GeneratedFiles/*
 
 !GeneratedFiles/.gitkeep
+!GeneratedFiles/WeekdaysSolution.csv
+!GeneratedFiles/SaturdaysSolution.csv
