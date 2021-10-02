@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def getAverages():
+def getAverages(outName=None):
     fname = "Data/WoolworthsDemands.csv"
 
     demandData = pd.read_csv(fname, index_col="Store").transpose()
@@ -12,10 +12,12 @@ def getAverages():
     weekdaysMean = weekdays.mean(axis=0).to_frame().rename(columns={0:"Weekdays"})
     saturdaysMean = saturdays.mean(axis=0).to_frame().rename(columns={0:"Saturdays"})
 
-    return pd.merge(weekdaysMean, saturdaysMean, on="Store")
+    averages = pd.merge(weekdaysMean, saturdaysMean, on="Store")
+
+    averages.to_csv(outName)
 
 
 if __name__ == "__main__":
-    outname = "GeneratedFiles/AverageDemands.csv"
+    outName = "GeneratedFiles/AverageDemands.csv"
 
-    getAverages().to_csv(outname)
+    getAverages(outName)

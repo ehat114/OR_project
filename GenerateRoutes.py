@@ -15,7 +15,7 @@ class Routes():
         self.origin = "Distribution Centre Auckland"
 
         # Get average demands
-        self.demands = getAverages()
+        self.demands = getDemands()
 
         # Get adjacency matrix
         self.adj = getAdjacencyMatrix()
@@ -66,6 +66,9 @@ class Routes():
     def loadfrom(self, fname):
         self.routes = pd.read_csv(f"{fname}.csv", index_col=0)
 
+def getDemands():
+    fname = "GeneratedFiles/AverageDemands.csv"
+    return pd.read_csv(fname, index_col="Store")
 
 def getAdjacencyMatrix():
     fname = "Data/WoolworthsTravelDurations.csv"

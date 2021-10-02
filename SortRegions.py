@@ -45,7 +45,7 @@ def sort_regions_kmeans(plotRegions=False):
         plt.show()
 
 
-def sort_regions_manual(plotRegions=False):
+def sort_regions_manual(outName=None, plotRegions=False):
     ''' Partitions the Woolworths stores into regions based on our manually selected region boundaries.
 
         Parameters
@@ -64,7 +64,7 @@ def sort_regions_manual(plotRegions=False):
     # read location data from file
     data = pd.read_csv('Data/WoolworthsLocations.csv')
     # seperate out required columns
-    locs = data.loc[:,['Store','Lat','Long']]
+    locs = data.loc[:,['Store','Lat','Long']].copy()
     locs.set_index('Store')
 
     # create new column of regions
@@ -96,7 +96,8 @@ def sort_regions_manual(plotRegions=False):
     locs['Region'][7] = 1
 
     # write to csv file
-    locs.to_csv('GeneratedFiles/WoolworthsRegions.csv')
+    if outName is not None:
+        locs.to_csv(outName)
 
     if plotRegions:
         # visualise regions with scatterplot
