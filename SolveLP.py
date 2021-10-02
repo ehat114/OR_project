@@ -22,15 +22,8 @@ def solveRoutesLP(dayType=None, saveLP=False):
         prob.solve()
         
         routes = routes.iloc[[v.name[6:] for v in prob.variables() if v.varValue == 1]]
-        routes[["Path", "Pallets", "Cost"]].to_csv(f"GeneratedFiles/{dayType}Solution.csv")
+        routes["Total Cost"] = [value(prob.objective)] + [0]*(routes.shape[0] - 1)
+        routes[["Path", "Pallets", "Cost", "Total Cost"]].to_csv(f"GeneratedFiles/{dayType}Solution.csv")
 
 if __name__ == "__main__":
-    prob = solveRoutesLP(dayType="Weekdays")
-
-    # Each of the variables is printed with its resolved optimum value
-    for v in prob.variables():
-        if v.varValue == 1:
-            print(v.name, "=", v.varValue)
-
-    # The optimised objective function valof Ingredients pue is printed to the screen    
-    print("Total Cost = ", value(prob.objective))
+    solveRoutesLP(dayType="Weekdays")
