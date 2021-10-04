@@ -1,17 +1,21 @@
 ,Path,Pallets,Cost,Total Cost
-11007,"['Countdown Hauraki Corner', 'Countdown Milford', 'Countdown Takapuna']",10.25,623.52,9886.389999999998
-11833,"['Countdown Highland Park', 'Countdown Aviemore Drive', 'Countdown Howick', 'Countdown Meadowlands']",13.75,658.42,0.0
-14191,"['Countdown Lincoln Road', 'Countdown Henderson', 'Countdown Te Atatu South', 'Countdown Te Atatu']",16.0,762.82,0.0
-15961,"['Countdown Lynmall', 'Countdown Kelston', 'Countdown Blockhouse Bay', 'Countdown Lynfield']",13.75,635.03,0.0
-17417,"['Countdown Mangere Mall', 'Countdown Airport']",8.5,350.22,0.0
-2265,"['Countdown Auckland City', 'Countdown Metro Albert Street', 'Countdown Metro Halsey Street', 'Countdown Victoria Street West']",7.5,473.22,0.0
-3139,"['Countdown Birkenhead', 'Countdown Northcote']",8.75,539.85,0.0
-31439,"['Countdown Papatoetoe', 'Countdown Manukau', 'Countdown Manukau Mall', 'Countdown Mangere East']",16.0,615.21,0.0
-35233,"['Countdown St Johns', 'Countdown Meadowbank', 'Countdown Mt Wellington', 'Countdown Sylvia Park']",15.0,655.58,0.0
-38635,"['Countdown Takanini', 'Countdown Papakura', 'Countdown Roselands', 'Countdown Manurewa']",17.25,757.22,0.0
-41814,"['Countdown Three Kings', 'Countdown Onehunga']",7.75,351.49,0.0
-44883,"['Countdown Westgate', 'Countdown Northwest', 'Countdown Hobsonville', 'Countdown Pt Chevalier']",19.25,874.63,0.0
-4653,"['Countdown Botany Downs', 'Countdown Pakuranga']",6.75,407.09,0.0
-5152,"['Countdown Glenfield', 'Countdown Sunnynook', 'Countdown Mairangi Bay', 'Countdown Browns Bay']",15.5,870.54,0.0
-5978,"['Countdown Greenlane', 'Countdown Newmarket', 'Countdown Mt Eden', 'Countdown Mt Roskill']",15.75,668.64,0.0
-8145,"['Countdown Grey Lynn', 'Countdown Ponsonby', 'Countdown Grey Lynn Central', 'Countdown St Lukes']",14.75,642.91,0.0
+1271,"['Countdown Hauraki Corner', 'Countdown Milford', 'Countdown Takapuna']",12.0,672.73,11107.66
+1424,"['Countdown Highland Park', 'Countdown Aviemore Drive', 'Countdown Pakuranga']",11.0,548.09,0.0
+1655,"['Countdown Howick', 'Countdown Meadowlands', 'Countdown Botany Downs']",11.0,571.56,0.0
+1835,"['Countdown Lincoln Road', 'Countdown Henderson', 'Countdown Kelston']",14.0,686.81,0.0
+1948,"['Countdown Lynfield', 'Countdown Blockhouse Bay', 'Countdown Lynmall']",11.0,519.28,0.0
+2248,['Countdown Mangere East'],4.0,166.36,0.0
+238,"['Countdown Auckland City', 'Countdown Metro Albert Street', 'Countdown Metro Halsey Street']",4.0,362.43,0.0
+2528,"['Countdown Manukau Mall', 'Countdown Manukau', 'Countdown Papatoetoe']",13.0,521.13,0.0
+2579,"['Countdown Manurewa', 'Countdown Airport', 'Countdown Mangere Mall']",13.0,566.59,0.0
+2996,"['Countdown Mt Eden', 'Countdown St Lukes', 'Countdown Mt Roskill']",13.0,561.33,0.0
+348,"['Countdown Birkenhead', 'Countdown Glenfield', 'Countdown Northcote']",15.0,756.36,0.0
+4498,"['Countdown St Johns', 'Countdown Meadowbank', 'Countdown Mt Wellington']",13.0,593.01,0.0
+4771,['Countdown Sylvia Park'],4.0,233.39,0.0
+4933,"['Countdown Takanini', 'Countdown Roselands', 'Countdown Papakura']",15.0,669.58,0.0
+5231,"['Countdown Te Atatu South', 'Countdown Te Atatu', 'Countdown Pt Chevalier']",13.0,644.37,0.0
+5336,"['Countdown Three Kings', 'Countdown Onehunga']",8.0,358.52,0.0
+5661,"['Countdown Westgate', 'Countdown Northwest', 'Countdown Hobsonville']",16.0,751.44,0.0
+627,"['Countdown Browns Bay', 'Countdown Mairangi Bay', 'Countdown Sunnynook']",13.0,767.31,0.0
+799,"['Countdown Greenlane', 'Countdown Newmarket', 'Countdown Victoria Street West']",12.0,575.45,0.0
+988,"['Countdown Grey Lynn', 'Countdown Ponsonby', 'Countdown Grey Lynn Central']",13.0,581.92,0.0
