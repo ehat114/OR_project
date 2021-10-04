@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def getAverages(outName=None):
@@ -9,8 +10,8 @@ def getAverages(outName=None):
     weekdays = demandData.loc[(demandData.index.weekday!=5) & (demandData.index.weekday!=6)]
     saturdays = demandData.loc[demandData.index.weekday==5]
 
-    weekdaysMean = weekdays.mean(axis=0).to_frame().rename(columns={0:"Weekdays"})
-    saturdaysMean = saturdays.mean(axis=0).to_frame().rename(columns={0:"Saturdays"})
+    weekdaysMean = weekdays.mean(axis=0).apply(np.ceil).to_frame().rename(columns={0:"Weekdays"})
+    saturdaysMean = saturdays.mean(axis=0).apply(np.ceil).to_frame().rename(columns={0:"Saturdays"})
 
     averages = pd.merge(weekdaysMean, saturdaysMean, on="Store")
 
