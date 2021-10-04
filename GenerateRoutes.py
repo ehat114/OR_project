@@ -5,7 +5,7 @@ import re
 
 class Routes():
     def __init__(self, dayType) -> None:
-        # Constraints
+        # Define constraints
         self.maxPallets = 26
         self.maxTime = 4 * (60 ** 2)
         self.costCoeff = 225. / (60**2)
@@ -25,7 +25,9 @@ class Routes():
         # Get the name of every store
         self.stores = [s for s in self.adj.index.tolist() if s != self.origin]
         
+        # check if day is Saturday (stores have different demand)
         if dayType == "Saturdays":
+            # find Countdown stores in route path
             matchStr = re.compile("Countdown")
             self.stores = [s for s in self.stores if matchStr.match(s)]
 
@@ -68,17 +70,64 @@ class Routes():
         self.routes = pd.read_csv(fname, index_col=0)
 
 def getDemands():
+    ''' Reads a dataframe of average store demands from file.
+    
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        df : Pandas Dataframe
+            Dataframe of average store demands.
+    '''
+    # define file name
     fname = "GeneratedFiles/AverageDemands.csv"
-    return pd.read_csv(fname, index_col="Store")
+    # read average store demands from file
+    df = pd.read_csv(fname, index_col="Store")
+    # return dataframe of average demands
+    return df
+
 
 def getAdjacencyMatrix():
+    ''' Reads the adjacency matrix for our linear programme i.e. a dataframe of travel durations between
+        stores.
+    
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        df : Pandas Dataframe
+            Adjacency matrix of travel durations.
+    '''
+    # define file name
     fname = "Data/WoolworthsTravelDurations.csv"
-    return pd.read_csv(fname, index_col=0)
+    # read travel durations from file
+    df = pd.read_csv(fname, index_col=0)
+    # return adjacency matrix
+    return df
 
 
 def getRegions():
+    ''' Reads a dataframe of store regions from file.
+    
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        df : Pandas Dataframe
+            Dataframe of store regions.
+        '''
+    # define file name 
     fname = "GeneratedFiles/WoolworthsRegions.csv"
-    return pd.read_csv(fname, index_col="Store")["Region"]
+    # read store regions from file
+    df = pd.read_csv(fname, index_col="Store")["Region"]
+    # return dataframe of store regions
+    return df
 
 
 if __name__ == "__main__":
