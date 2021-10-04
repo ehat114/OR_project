@@ -1,3 +1,4 @@
+from numpy.lib.function_base import trim_zeros
 from CalculateAverages import getAverages
 from SortRegions import sort_regions_manual
 from GenerateRoutes import Routes
@@ -5,9 +6,9 @@ from SolveLP import solveRoutesLP
 from os import path
 
 if __name__ == "__main__":
-    overWriteAverages = False
+    overWriteAverages = True
     overWriteRegions = False
-    overWriteRoutes = {"Weekdays": False, "Saturdays": True}
+    overWriteRoutes = {"Weekdays": True, "Saturdays": True}
     overWriteSolutions = True
 
     # Calculate average demand
@@ -30,7 +31,7 @@ if __name__ == "__main__":
         # Generate valid routes
         routesFile = f"GeneratedFiles/{dayType}Routes.csv"
         if overWriteRoutes[dayType] or not path.exists(routesFile):
-            maxStops = 4 if dayType == "Weekdays" else 4
+            maxStops = 3 if dayType == "Weekdays" else 3
 
             routes = Routes(dayType)
 
