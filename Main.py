@@ -5,11 +5,12 @@ from GenerateRoutes import Routes
 from SolveLP import solveRoutesLP
 from os import path
 
+
 if __name__ == "__main__":
-    overWriteAverages = True
+    overWriteAverages = False
     overWriteRegions = False
-    overWriteRoutes = {"Weekdays": True, "Saturdays": True}
-    overWriteSolutions = True
+    overWriteRoutes = {"Weekdays": True, "Saturdays": False}
+    overWriteSolutions = {"Weekdays": True, "Saturdays": False}
 
     # Calculate average demand
     averagesFile = "GeneratedFiles/AverageDemands.csv"
@@ -43,7 +44,7 @@ if __name__ == "__main__":
 
         # Solve LP
         solFile = f"GeneratedFiles/{dayType}Solution.csv"
-        if overWriteSolutions or not path.exists(solFile):
+        if overWriteSolutions[dayType] or not path.exists(solFile):
             solveRoutesLP(dayType=dayType)
                 
         print(f"{dayType} solutions passed")
