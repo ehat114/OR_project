@@ -1,7 +1,10 @@
 GeneratedFiles/*
 __pycache__/*
 .vscode/*
+temp.ipynb
 
 !GeneratedFiles/.gitkeep
 !GeneratedFiles/WeekdaysSolution.csv
 !GeneratedFiles/SaturdaysSolution.csv
+!GeneratedFiles/SimCosts.pickle
+!GeneratedFiles/SimHist.png
