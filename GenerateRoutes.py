@@ -4,7 +4,7 @@ import re
 
 
 class Routes():
-    def __init__(self, dayType) -> None:
+    def __init__(self, dayType, removeStores=False) -> None:
         # Define constraints
         self.maxPallets = 26
         self.maxTime = 4 * (60 ** 2)
@@ -14,7 +14,7 @@ class Routes():
         self.origin = "Distribution Centre Auckland"
 
         # Get average demands
-        self.demands = getDemands()
+        self.demands = getDemands(removeStores=removeStores)
 
         # Get adjacency matrix
         self.adj = getAdjacencyMatrix()
@@ -23,13 +23,14 @@ class Routes():
         self.regions = getRegions()
 
         # Get the name of every store
-        self.stores = [s for s in self.adj.index.tolist() if s != self.origin]
+        self.stores = [s for s in self.demands.index.tolist() if s != self.origin]
         
         # check if day is Saturday (stores have different demand)
         if dayType == "Saturdays":
             # find Countdown stores in route path
             matchStr = re.compile("Countdown")
-            self.stores = [s for s in self.stores if matchStr.match(s)]
+            metroStr = re.compile("Metro")
+            self.stores = [s for s in self.stores if matchStr.match(s) and not metroStr.match(s)]
 
         # Initialize dataframe
         self.routes = pd.DataFrame(columns=["Path"] + ["Pallets"] + ["Cost"] + self.stores)
@@ -69,7 +70,7 @@ class Routes():
     def loadfrom(self, fname):
         self.routes = pd.read_csv(fname, index_col=0)
 
-def getDemands():
+def getDemands(removeStores=False):
     ''' Reads a dataframe of average store demands from file.
     
         Parameters
@@ -82,7 +83,7 @@ def getDemands():
             Dataframe of average store demands.
     '''
     # define file name
-    fname = "GeneratedFiles/AverageDemands.csv"
+    fname = "GeneratedFiles/AverageDemands.csv" if not removeStores else "GeneratedFiles/AverageDemands2.csv"
     # read average store demands from file
     df = pd.read_csv(fname, index_col="Store")
     # return dataframe of average demands

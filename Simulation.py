@@ -7,6 +7,7 @@ import pickle
 
 def getCost(path, adj, demands):
     path = ["Distribution Centre Auckland"] + path + ["Distribution Centre Auckland"]
+    travelTimes = getTravelTime(adj, path)
     randomDemands = getRandomDemands(demands, path)
 
     totalTime = 0
@@ -20,12 +21,12 @@ def getCost(path, adj, demands):
 
     for i in range(len(path) - 1):
         pallets = randomDemands[i + 1]
-        nextTime = totalTime + adj.loc[path[i], path[i + 1]] + 450 * pallets
+        nextTime = totalTime + travelTimes[i] + 450 * pallets
         nextPallets = totalPallets + pallets
 
         if nextPallets > maxPallets:
             # do the rest of the path
-            totalTime += adj.loc[path[i], "Distribution Centre Auckland"]
+            totalTime += np.random.normal(adj.loc[path[i], "Distribution Centre Auckland"], 2)
             
             freight = 1
             break
@@ -43,6 +44,10 @@ def getRandomDemands(demands, path):
     return [np.random.choice(demands.loc[store].tolist()) if store != "Distribution Centre Auckland" else 0 for store in path]
 
 
+def getTravelTime(adj, path):
+    return [np.random.normal([adj.loc[path[i]][path[i + 1]] for i in range(len(path) - 1)], 2)]
+
+
 if __name__ == "__main__":
     a = 0
 
@@ -56,8 +61,8 @@ if __name__ == "__main__":
         # adjacency matrix
         adj = pd.read_csv("Data/WoolworthsTravelDurations.csv", index_col=0)
         # routes
-        satRoutes = pd.read_csv("GeneratedFiles/SaturdaysSolution.csv")["Path"]
-        weekRoutes = pd.read_csv("GeneratedFiles/WeekdaysSolution.csv")["Path"]
+        satRoutes = pd.read_csv("GeneratedFiles/SaturdaysSolution2.csv")["Path"]
+        weekRoutes = pd.read_csv("GeneratedFiles/WeekdaysSolution2.csv")["Path"]
 
         satRoutes = [satRoutes[i][2:-2].split("', '") for i in range(len(satRoutes))]
         weekRoutes = [weekRoutes[i][2:-2].split("', '") for i in range(len(weekRoutes))]
@@ -80,27 +85,30 @@ if __name__ == "__main__":
         with open("GeneratedFiles/SimCosts.pickle", "rb") as fp:
             weekCosts, satCosts = pickle.load(fp)
     
-    satLabel = "p-value = {:.2e}".format(stats.ttest_1samp(satCosts, 11107.66)[1])
-    weekLabel = "p-value = {:.2e}".format(stats.ttest_1samp(weekCosts, 20907.29)[1])
+    satExp = pd.read_csv("GeneratedFiles/SaturdaysSolution2.csv")["Total Cost"].tolist()[0]
+    weekExp = pd.read_csv("GeneratedFiles/WeekdaysSolution2.csv")["Total Cost"].tolist()[0]
+
+    satLabel = "p-value = {:.2e}".format(stats.ttest_1samp(satCosts, satExp)[1])
+    weekLabel = "p-value = {:.2e}".format(stats.ttest_1samp(weekCosts, weekExp)[1])
 
     fig, (ax1, ax2) = plt.subplots(1, 2)
     ax1.hist(satCosts, density=True, histtype="stepfilled", alpha=0.2, bins=12)
     ax1.plot([], color="white", label=satLabel)
-    ax1.axvline(11107.66, color='r', linestyle='dashed', linewidth=1)
+    ax1.axvline(satExp, color='r', linestyle='dashed', linewidth=1)
+    ax1.axvline(np.mean(satCosts), color='b', linestyle='dashed', linewidth=1)
     ax1.set_title('Saturdays')
     ax1.set_xlabel("Cost per Saturdays [$]")
     ax1.legend(frameon=False)
-    
+
     ax2.hist(weekCosts, density=True, histtype="stepfilled", alpha=0.2, bins=12)
     ax2.plot([], color="white", label=weekLabel)
-    ax2.axvline(20907.29, color='r', linestyle='dashed', linewidth=1)
+    ax2.axvline(weekExp, color='r', linestyle='dashed', linewidth=1)
+    ax2.axvline(np.mean(weekCosts), color='b', linestyle='dashed', linewidth=1)
     ax2.set_title("Weekdays")
     ax2.set_xlabel("Cost per Weekday [$]")
     ax2.legend(frameon=False)
 
-    
     fig.tight_layout()
 
-    plt.savefig("GeneratedFiles/SimHist.png")
     plt.show()
 

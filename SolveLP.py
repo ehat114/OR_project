@@ -1,8 +1,11 @@
 import pandas as pd
 from pulp import *
 
-def solveRoutesLP(dayType=None, saveLP=False):
-    fname = "GeneratedFiles/WeekdaysRoutes.csv" if dayType == "Weekdays" else "GeneratedFiles/SaturdaysRoutes.csv" if dayType == "Saturdays" else None
+def solveRoutesLP(outname, dayType=None, saveLP=False, removeStores=False):
+    if removeStores:
+        fname = "GeneratedFiles/WeekdaysRoutes2.csv" if dayType == "Weekdays" else "GeneratedFiles/SaturdaysRoutes2.csv" if dayType == "Saturdays" else None
+    else:
+        fname = "GeneratedFiles/WeekdaysRoutes.csv" if dayType == "Weekdays" else "GeneratedFiles/SaturdaysRoutes.csv" if dayType == "Saturdays" else None
 
     if fname is not None:
         routes = pd.read_csv(fname, index_col=0)
@@ -23,7 +26,7 @@ def solveRoutesLP(dayType=None, saveLP=False):
         
         routes = routes.iloc[[v.name[6:] for v in prob.variables() if v.varValue == 1]]
         routes["Total Cost"] = [value(prob.objective)] + [0]*(routes.shape[0] - 1)
-        routes[["Path", "Pallets", "Cost", "Total Cost"]].to_csv(f"GeneratedFiles/{dayType}Solution.csv")
+        routes[["Path", "Pallets", "Cost", "Total Cost"]].to_csv(outname)
 
 if __name__ == "__main__":
-    solveRoutesLP(dayType="Weekdays")
+    solveRoutesLP(dayType="Weekdays", removeStores=True)

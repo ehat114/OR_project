@@ -9,13 +9,14 @@ from os import path
 if __name__ == "__main__":
     overWriteAverages = False
     overWriteRegions = False
-    overWriteRoutes = {"Weekdays": True, "Saturdays": False}
-    overWriteSolutions = {"Weekdays": True, "Saturdays": False}
+    overWriteRoutes = {"Weekdays": False, "Saturdays": True}
+    overWriteSolutions = {"Weekdays": True, "Saturdays": True}
+    removeStores = True
 
     # Calculate average demand
     averagesFile = "GeneratedFiles/AverageDemands.csv"
     if overWriteAverages or not path.exists(averagesFile):
-        getAverages(outName=averagesFile)
+        getAverages(outName=averagesFile, removeStores=removeStores)
 
     print("Averages passed")
 
@@ -30,11 +31,11 @@ if __name__ == "__main__":
     for dayType in ["Weekdays", "Saturdays"]:
             
         # Generate valid routes
-        routesFile = f"GeneratedFiles/{dayType}Routes.csv"
+        routesFile = f"GeneratedFiles/{dayType}Routes.csv" if not removeStores else f"GeneratedFiles/{dayType}Routes2.csv"
         if overWriteRoutes[dayType] or not path.exists(routesFile):
             maxStops = 3 if dayType == "Weekdays" else 3
 
-            routes = Routes(dayType)
+            routes = Routes(dayType, removeStores=removeStores)
 
             routes.getRoutes(dayType, maxStops)
             
@@ -43,8 +44,8 @@ if __name__ == "__main__":
         print(f"{dayType} routes passed")
 
         # Solve LP
-        solFile = f"GeneratedFiles/{dayType}Solution.csv"
+        solFile = f"GeneratedFiles/{dayType}Solution.csv" if not removeStores else f"GeneratedFiles/{dayType}Solution2.csv"
         if overWriteSolutions[dayType] or not path.exists(solFile):
-            solveRoutesLP(dayType=dayType)
+            solveRoutesLP(outname=solFile, dayType=dayType, removeStores=True)
                 
         print(f"{dayType} solutions passed")
